@@ -1,6 +1,7 @@
-using Delivery.Api.Extensions;
+using HugeCarService.Api.Extensions;
 using HugeCarWash.API.Configurations;
 using HugeCarWash.Data.Contexts;
+using HugeCarWash.Service.Helpers;
 using HugeCarWash.Service.Mappers;
 using Microsoft.EntityFrameworkCore;
 
@@ -35,13 +36,18 @@ builder.Services.AddEndpointsApiExplorer();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 {
+    app.UseDeveloperExceptionPage();
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
+app.UseCors("AllowAll");
+
 app.UseHttpsRedirection();
+
+app.UseRouting();
 
 app.UseAuthorization();
 

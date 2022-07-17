@@ -3,7 +3,7 @@ using HugeCarWash.Data.Repositories;
 using HugeCarWash.Service.Interfaces;
 using HugeCarWash.Service.Services;
 
-namespace Delivery.Api.Extensions
+namespace HugeCarService.Api.Extensions
 {
     public static class ServiceExtensions
     {
