@@ -5,6 +5,7 @@ using HugeCarWash.Domain.Configurations;
 using HugeCarWash.Domain.Entities.Employees;
 using HugeCarWash.Domain.Enums;
 using HugeCarWash.Service.DTOs.Employees;
+using HugeCarWash.Service.Interfaces;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace HugeCarWash.Service.Services
 {
-    public class EmployeeService
+    public class EmployeeService : IEmployeeService
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IConfiguration config;

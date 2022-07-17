@@ -1,3 +1,4 @@
+using Delivery.Api.Extensions;
 using HugeCarWash.API.Configurations;
 using HugeCarWash.Data.Contexts;
 using HugeCarWash.Service.Mappers;
@@ -25,6 +26,8 @@ builder.Services.ConfigureSwagger(builder.Configuration);
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddAutoMapper(typeof(MappingProfile));
+
+builder.Services.AddCustomServices();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
