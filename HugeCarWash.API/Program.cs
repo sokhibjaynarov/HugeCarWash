@@ -1,11 +1,28 @@
+using HugeCarWash.API.Configurations;
+using HugeCarWash.Data.Contexts;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+builder.Services.AddCors(p =>
+{
+    p.AddPolicy("AllowAll", p =>
+        p.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin());
+});
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+{
+    options.UseNpgsql(builder.Configuration.GetConnectionString("Default"));
+});
+
+builder.Services.ConfigureSwagger(builder.Configuration);
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
