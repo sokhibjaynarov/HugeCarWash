@@ -1,5 +1,6 @@
 using HugeCarWash.API.Configurations;
 using HugeCarWash.Data.Contexts;
+using HugeCarWash.Service.Mappers;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,6 +21,10 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 });
 
 builder.Services.ConfigureSwagger(builder.Configuration);
+
+builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
