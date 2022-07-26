@@ -1,0 +1,24 @@
+<div class="book-details">
+    <div class="card" *ngIf="order">
+        <div class="card-body card-column">
+            <div class="card-column-element">
+                <div class="card-elements">
+                    <h6>Id:</h6>
+                    <h6>{{ order.id }}</h6>
+                </div>
+                <div class="card-elements">
+                    <h6>Employee name:</h6>
+                    <h6>{{ order.employeeId }}</h6>
+                </div>
+                <div class="card-elements">
+                    <h6>Car number:</h6>
+                    <h6>{{ order.clientId }}</h6>
+                </div>
+            </div>
+        </div>
+        <div class="card-buttons">
+            <a [routerLink]="['/ordersk']" class="card-link">Back</a>
+            <a [routerLink]="['/update-order', order.id]" class="card-link">Update</a>
+        </div>
+    </div>
+</div>

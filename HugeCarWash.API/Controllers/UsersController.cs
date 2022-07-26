@@ -45,8 +45,8 @@ namespace HugeCarService.Api.Controllers
             return StatusCode(result.Error is null ? result.Code : result.Error.Code, result);
         }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult<BaseResponse<User>>> Update(Guid id, [FromForm] UserForCreationDto UserDto)
+        [HttpPut("{id:guid}")]
+        public async Task<ActionResult<BaseResponse<User>>> Update(Guid id, [FromBody] UserForCreationDto UserDto)
         {
             var result = await userService.UpdateAsync(id, UserDto);
 

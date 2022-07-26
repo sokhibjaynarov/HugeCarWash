@@ -47,7 +47,7 @@ namespace HugeCarService.Api.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<BaseResponse<Order>>> Update(Guid id, [FromForm] OrderForCreationDto OrderDto)
+        public async Task<ActionResult<BaseResponse<Order>>> Update(Guid id, [FromBody] OrderForCreationDto OrderDto)
         {
             var result = await orderService.UpdateAsync(id, OrderDto);
 

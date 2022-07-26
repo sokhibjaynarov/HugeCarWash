@@ -1,0 +1,18 @@
+<div class="add-client">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="firstName" class="required">First name</label>
+            <input type="text" class="form-control" id="firstName" formControlName="firstName" placeholder="First name">
+        </div>
+        <div class="form-group">
+            <label for="lastName" class="required">Last name</label>
+            <input type="text" class="form-control" id="lastName" formControlName="lastName" placeholder="Last name">
+        </div>
+        <div class="form-group">
+            <label for="phoneNumber" class="required">Phone number</label>
+            <input type="text" class="form-control" id="phoneNumber" formControlName="phoneNumber" placeholder="Phone number">
+        </div>
+        <button type="submit" class="btn btn-success">Add</button>
+        <button type="submit" class="btn btn-default" [routerLink]="['/employees']">Cancel</button>
+    </form>
+</div>

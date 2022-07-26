@@ -1,0 +1,44 @@
+<div class="add-client">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <!-- <div class="form-group">
+            <label for="carNumber" class="required">Car number</label>
+            <input type="text" class="form-control" id="carNumber" formControlName="carNumber" placeholder="Car number">
+        </div> -->
+        <div class="form-group">
+            <mat-form-field>
+                <mat-label>
+                  Car number
+                </mat-label>
+                <input formControlName="carNumber" matInput type="text" [matAutocomplete]="auto1" />
+                <mat-autocomplete #auto1="matAutocomplete">
+                  <mat-option *ngFor="let item of filteredOptionsClient" [value]="item">
+                    {{item}}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+        </div>
+        <!-- <div class="form-group">
+            <label for="employeeName" class="required">Employee name</label>
+            <input type="text" class="form-control" id="employeeName" formControlName="employeeName" placeholder="Employee name">
+        </div> -->
+        <div class="form-group">
+            <mat-form-field>
+                <mat-label>
+                  Employee name
+                </mat-label>
+                <input formControlName="employeeName" matInput type="text" [matAutocomplete]="auto" />
+                <mat-autocomplete #auto="matAutocomplete">
+                  <mat-option *ngFor="let item of filteredOptionsEmployee" [value]="item">
+                    {{item}}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+        </div>
+        <div class="form-group">
+            <label for="price" class="required">Price</label>
+            <input type="text" class="form-control" id="price" formControlName="price" placeholder="Price">
+        </div>
+        <button type="submit" class="btn btn-success">Add</button>
+        <button type="submit" class="btn btn-default" [routerLink]="['/orders']">Cancel</button>
+    </form>
+</div>

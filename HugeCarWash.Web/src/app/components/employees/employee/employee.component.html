@@ -1,0 +1,50 @@
+<div class="book-details">
+    <div class="card" *ngIf="employee">
+        <div class="card-body card-column">
+            <div class="card-column-element">
+                <div class="card-elements">
+                    <h6>Id:</h6>
+                    <h6>{{ employee.id }}</h6>
+                </div>
+                <div class="card-elements">
+                    <h6>First name:</h6>
+                    <h6>{{ employee.firstName }}</h6>
+                </div>
+                <div class="card-elements">
+                    <h6>Last name:</h6>
+                    <h6>{{ employee.lastName }}</h6>
+                </div>
+            </div>
+        </div>
+        <div class="card-buttons">
+            <a [routerLink]="['/employees']" class="card-link">Back</a>
+            <a [routerLink]="['/update-employee', employee.id]" class="card-link">Update</a>
+        </div>
+    </div>
+</div>
+
+<div class="order-title">
+    <h1>Employee orders</h1>
+    <h5>Number of orders: {{ employeeOrders?.length }}</h5>
+</div>
+
+<table class="table table-stripped" *ngIf="employeeOrders">
+    <thead>
+        <tr>
+            <th>Order id</th>
+            <th>Order price</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let order of employeeOrders">
+            <td>{{ order.id }}</td>
+            <td>{{ order.price }}</td>
+            <th>
+                <button class="btn btn-default btn-sm" (click)="showOrder(order.id)">
+                    Show
+                </button>
+            </th>
+        </tr>
+    </tbody>
+</table>

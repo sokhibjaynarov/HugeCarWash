@@ -1,0 +1,25 @@
+<h1>Orders</h1>
+
+<table class="table table-stripped" *ngIf="orders">
+    <thead>
+        <tr>
+            <th>Order id</th>
+            <th>Client</th>
+            <th>Employee</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let order of orders">
+            <td>{{order.id}}</td>
+            <td>{{getClientName(order.clientId)}}</td>
+            <td>{{getEmployeeName(order.clientId)}}</td>
+            <td>{{order.price}}</td>
+            <th>
+                <button class="btn btn-default btn-sm" (click)="showOrder(order.id)">
+                    Show
+                </button>
+            </th>
+        </tr>
+    </tbody>
+</table>

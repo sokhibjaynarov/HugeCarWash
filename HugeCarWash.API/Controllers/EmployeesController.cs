@@ -46,7 +46,7 @@ namespace HugeCarWash.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<BaseResponse<Employee>>> Update(Guid id, [FromForm] EmployeeForCreationDto employeeDto)
+        public async Task<ActionResult<BaseResponse<Employee>>> Update(Guid id, [FromBody] EmployeeForCreationDto employeeDto)
         {
             var result = await employeeService.UpdateAsync(id, employeeDto);
 

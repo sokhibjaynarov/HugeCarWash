@@ -1,0 +1,31 @@
+<h1>Clients</h1>
+
+<table class="table table-stripped" *ngIf="clients">
+    <thead>
+        <tr>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Phone number</th>
+            <th>Car number</th>
+            <th>Car model</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let client of clients">
+            <td>{{client.firstName}}</td>
+            <td>{{client.lastName}}</td>
+            <td>{{client.phoneNumber}}</td>
+            <td>{{client.carNumber}}</td>
+            <td>{{client.carModel}}</td>
+            <th>
+                <button class="btn btn-default btn-sm" (click)="showClient(client.id)">
+                    Show
+                </button>
+                <button class="btn btn-success btn-sm" (click)="updateClient(client.id)">
+                    Update
+                </button>
+            </th>
+        </tr>
+    </tbody>
+</table>

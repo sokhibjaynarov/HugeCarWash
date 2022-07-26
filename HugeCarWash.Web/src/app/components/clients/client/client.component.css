@@ -1,0 +1,33 @@
+.el{
+    margin: 0px 100px 0px 100px;
+}
+
+.card-elements{
+    display: flex;
+}
+
+h6{
+    margin: 5px;
+}
+
+.card-column{
+    display: flex;
+    justify-content: center;
+}
+
+.card-column-element{
+    margin: 20px;
+}
+
+.card-buttons{
+    display: flex;
+    justify-content: center;
+}
+
+.order-title{
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

@@ -1,0 +1,27 @@
+<h1>Employees</h1>
+
+<table class="table table-stripped" *ngIf="employees">
+    <thead>
+        <tr>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Phone number</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let employee of employees">
+            <td>{{employee.firstName}}</td>
+            <td>{{employee.lastName}}</td>
+            <td>{{employee.phoneNumber}}</td>
+            <th>
+                <button class="btn btn-default btn-sm" (click)="showEmployee(employee.id)">
+                    Show
+                </button>
+                <button class="btn btn-success btn-sm" (click)="updateEmployee(employee.id)">
+                    Update
+                </button>
+            </th>
+        </tr>
+    </tbody>
+</table>
