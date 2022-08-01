@@ -20,6 +20,7 @@ export class AddOrderComponent implements OnInit {
   clients!: IClient[];
   employees!: IEmployee[];
   form!: FormGroup;
+  order!: Order;
 
   optionsClient = ["Sam", "Varun", "Jasmine"];
   optionsEmployee = ["Sam", "Varun", "Jasmine"];
@@ -30,39 +31,40 @@ export class AddOrderComponent implements OnInit {
   constructor( private service: OrderService,
     private router: Router,
     private employeeService: EmployeeService,
-    private clientService: ClientService,
-    private fb: FormBuilder) { }
+    private clientService: ClientService) { }
 
   async ngOnInit(): Promise<void> {
-    // (await this.clientService.getClients()).subscribe(data => {
-    //   this.clients = data;
-    // });
 
     this.clients = await this.clientService.getClients();
-
-    // (await this.employeeService.getEmployees()).subscribe(data => {
-    //   this.employees = data;
-    // });
 
     this.employees = await this.employeeService.getEmployees();
 
     this.getEmployeeNames();
     this.getClientCarNumbers();
     this.initForm();
+    this.getOrder();
   }
 
   initForm() {
-    this.form = this.fb.group({
-      'carNumber': ['', Validators.required],
-      'employeeName': ['', Validators.required],
-      'price':['', Validators.required],
+    this.form = new FormGroup({
+      carNumber: new FormControl('', Validators.required),
+      employeeName: new FormControl('', Validators.required),
+      price: new FormControl(60000, Validators.required),
     });
+
     this.form.get('employeeName')!.valueChanges.subscribe(response => {
       this.filterDataEmployee(response);
     });
     this.form.get('carNumber')!.valueChanges.subscribe(response => {
       this.filterDataClient(response);
     });
+  }
+
+  getOrder(): Promise<Order> {
+    let clientId: string = this.clients.find(client => client.carNumber === this.form.get('carNumber')!.value)!.id;
+    let employeeId: string = this.employees.find(employee => employee.firstName === this.form.get('employeeName')!.value)!.id;
+    this.order = new Order(this.form.get('price')!.value, clientId, employeeId);
+    return Promise.resolve(this.order);
   }
 
   filterDataClient(enteredData: string): void {
@@ -78,37 +80,17 @@ export class AddOrderComponent implements OnInit {
   }
 
   async getEmployeeNames(): Promise<void>{
-    // (await this.employeeService.getData()).subscribe((response: string[]) => {
-    //   this.optionsEmployee = response;
-    //   this.filteredOptionsEmployee = response;
-    // });
     this.optionsEmployee = await this.employeeService.getData();
     this.filteredOptionsEmployee = this.optionsEmployee;
   }
 
   async getClientCarNumbers(): Promise<void> {
-    // (await this.clientService.getData()).subscribe((response: string[]) => {
-    //   this.optionsClient = response;
-    //   this.filteredOptionsClient = response;
-    // });
     this.optionsClient = await this.clientService.getData();
     this.filteredOptionsClient = this.optionsClient;
   }
   
-  // order = new Order(
-  //   3, //this.form.value.price,
-  //   this.clients.find(client => client.carNumber === this.form.value.carNumber)!.id,
-  //   this.employees.find(employee => employee.firstName === this.form.value.employeeName)!.id
-  // );
-  
   async onSubmit(): Promise<void> {
-    // (await this.service.createOrder(this.form.value)).subscribe((data: IOrder) => {
-    //   this.router.navigate(["/orders"]);
-    // }, (error: any) => {
-    //   console.log(error);
-    // });
-
-    await this.service.createOrder(this.form.value);
+    await this.service.createOrder(this.order);
     this.router.navigate(["/orders"]);
   }
 }
