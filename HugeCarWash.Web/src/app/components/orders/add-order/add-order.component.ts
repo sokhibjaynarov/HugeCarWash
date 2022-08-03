@@ -20,7 +20,6 @@ export class AddOrderComponent implements OnInit {
   clients!: IClient[];
   employees!: IEmployee[];
   form!: FormGroup;
-  order!: Order;
 
   optionsClient = ["Sam", "Varun", "Jasmine"];
   optionsEmployee = ["Sam", "Varun", "Jasmine"];
@@ -42,7 +41,6 @@ export class AddOrderComponent implements OnInit {
     this.getEmployeeNames();
     this.getClientCarNumbers();
     this.initForm();
-    this.getOrder();
   }
 
   initForm() {
@@ -58,13 +56,6 @@ export class AddOrderComponent implements OnInit {
     this.form.get('carNumber')!.valueChanges.subscribe(response => {
       this.filterDataClient(response);
     });
-  }
-
-  getOrder(): Promise<Order> {
-    let clientId: string = this.clients.find(client => client.carNumber === this.form.get('carNumber')!.value)!.id;
-    let employeeId: string = this.employees.find(employee => employee.firstName === this.form.get('employeeName')!.value)!.id;
-    this.order = new Order(this.form.get('price')!.value, clientId, employeeId);
-    return Promise.resolve(this.order);
   }
 
   filterDataClient(enteredData: string): void {
@@ -90,7 +81,7 @@ export class AddOrderComponent implements OnInit {
   }
   
   async onSubmit(): Promise<void> {
-    await this.service.createOrder(this.order);
+    await this.service.createOrder(this.form.value);
     this.router.navigate(["/orders"]);
   }
 }

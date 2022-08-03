@@ -20,3 +20,10 @@ export class Order {
     }
 
 }
+
+export interface IOrderDto {
+    id: string;
+    price: number;
+    employeeName: string;
+    carNumber: string;
+}

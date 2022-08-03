@@ -1,6 +1,6 @@
 <h1>Orders</h1>
 
-<table class="table table-stripped" *ngIf="orders">
+<table class="table table-stripped" *ngIf="orderDtos">
     <thead>
         <tr>
             <th>Order id</th>
@@ -10,10 +10,10 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let order of orders">
+        <tr *ngFor="let order of orderDtos">
             <td>{{order.id}}</td>
-            <td>{{getClientName(order.clientId)}}</td>
-            <td>{{getEmployeeName(order.clientId)}}</td>
+            <td>{{order.carNumber}}</td>
+            <td>{{order.employeeName}}</td>
             <td>{{order.price}}</td>
             <th>
                 <button class="btn btn-default btn-sm" (click)="showOrder(order.id)">

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { IOrder } from 'src/app/interfaces/order';
+import { IOrder, IOrderDto } from 'src/app/interfaces/order';
 
 @Injectable({
   providedIn: 'root'
@@ -45,7 +45,17 @@ export class OrderService {
 
 
   getOrders(): Promise<IOrder[]> {
-    return this.http.get(this._baseUrl).toPromise().then((data: any) => {
+    return this.http.get(this._baseUrl + "/getAll").toPromise().then((data: any) => {
+      return data.data;
+    }
+    ).catch(err => {
+      console.log(err);
+    }
+    );
+  }
+
+  getAllOrders(): Promise<IOrderDto[]> {
+    return this.http.get(this._baseUrl + "/getAllOrders").toPromise().then((data: any) => {
       return data.data;
     }
     ).catch(err => {
@@ -55,7 +65,7 @@ export class OrderService {
   }
 
   getOrder(orderId: string): Promise<IOrder> {
-    return this.http.get(`${this._baseUrl}/${orderId}`).toPromise().then((data: any) => {
+    return this.http.get(`${this._baseUrl}/get/${orderId}`).toPromise().then((data: any) => {
       return data.data;
     }
     ).catch(err => {
@@ -65,7 +75,7 @@ export class OrderService {
   }
 
   createOrder(order: IOrder): Promise<IOrder> {
-    return this.http.post(this._baseUrl, order).toPromise().then((data: any) => {
+    return this.http.post(this._baseUrl + "/create", order).toPromise().then((data: any) => {
       return data.data;
     }
     ).catch(err => {
@@ -75,7 +85,7 @@ export class OrderService {
   }
 
   updateOrder(order: IOrder, id: string): Promise<IOrder> {
-    return this.http.put(`${this._baseUrl}/${id}`, order).toPromise().then((data: any) => {
+    return this.http.put(`${this._baseUrl}/update/${id}`, order).toPromise().then((data: any) => {
       return data.data;
     }
     ).catch(err => {
@@ -85,7 +95,7 @@ export class OrderService {
   }
 
   deleteOrder(id: string): Promise<boolean> {
-    return this.http.delete(`${this._baseUrl}/${id}`).toPromise().then((data: any) => {
+    return this.http.delete(`${this._baseUrl}/delete/${id}`).toPromise().then((data: any) => {
       return data.data;
     }
     ).catch(err => {

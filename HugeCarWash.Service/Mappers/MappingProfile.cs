@@ -13,7 +13,7 @@ namespace HugeCarWash.Service.Mappers
         public MappingProfile()
         {
             CreateMap<User, UserForCreationDto>().ReverseMap();
-            CreateMap<Order, OrderForCreationDto>().ReverseMap();
+            CreateMap<Order, OrderMapDto>().ReverseMap();
             CreateMap<Employee, EmployeeForCreationDto>().ReverseMap();
         }
     }

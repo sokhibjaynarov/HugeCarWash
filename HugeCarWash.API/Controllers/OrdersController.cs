@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace HugeCarService.Api.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     public class OrdersController : Controller
     {
         private readonly IOrderService orderService;
@@ -34,6 +34,14 @@ namespace HugeCarService.Api.Controllers
         public async Task<ActionResult<BaseResponse<IEnumerable<Order>>>> GetAll([FromQuery] PaginationParams @params)
         {
             var result = await orderService.GetAllAsync(@params);
+
+            return StatusCode(result.Error is null ? result.Code : result.Error.Code, result);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<BaseResponse<IEnumerable<Order>>>> GetAllOrders()
+        {
+            var result = await orderService.GetAllOrdersAsync();
 
             return StatusCode(result.Error is null ? result.Code : result.Error.Code, result);
         }

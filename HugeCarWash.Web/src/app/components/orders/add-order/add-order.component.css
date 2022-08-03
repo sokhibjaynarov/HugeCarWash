@@ -1,0 +1,8 @@
+.add-order{
+    padding: 0 30% 0 30%;
+}
+
+.required:after{
+    content: "*";
+    color: red;
+}

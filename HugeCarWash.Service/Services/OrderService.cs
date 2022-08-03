@@ -27,6 +27,16 @@ namespace HugeCarWash.Service.Services
         {
             var response = new BaseResponse<Order>();
 
+            var mapdto = new OrderMapDto()
+            {
+                EmployeeId = (await unitOfWork.Employees.GetAsync(p => p.FirstName == orderDto.EmployeeName)).Id,
+                UserId = (await unitOfWork.Users.GetAsync(p => p.CarModel == orderDto.CarNnumber)).Id,
+                Price = orderDto.Price
+            };
+
+            var user = await unitOfWork.Users.GetAsync(p => p.CarModel == orderDto.CarNnumber);
+
+
             var mappedOrder = mapper.Map<Order>(orderDto);
 
             mappedOrder.Create();
@@ -74,6 +84,37 @@ namespace HugeCarWash.Service.Services
             return response;
         }
 
+        public async Task<BaseResponse<IEnumerable<OrderDto>>> GetAllOrdersAsync()
+        {
+            var response = new BaseResponse<IEnumerable<OrderDto>>();
+
+            var orders = await unitOfWork.Orders.GetAllAsync(null);
+
+            var users = await unitOfWork.Users.GetAllAsync(null);
+
+            var employees = await unitOfWork.Employees.GetAllAsync(null);
+
+            var dtos = orders.Join(users, order => order.UserId, user => user.Id, (order, user) => new { Id = order.Id, CarNumber = user.CarNumber, EId = order.EmployeeId, Price = order.Price })
+                .ToList().Join(employees, dto => dto.EId, employee => employee.Id, (dto, employee) => new { Id = dto.Id, EmployeeName = employee.FirstName, CarNumber = dto.CarNumber, Price = dto.Price }).ToList();
+
+            List<OrderDto> orderDtos = new List<OrderDto>();
+
+            foreach(var dto in dtos)
+            {
+                orderDtos.Add(new OrderDto()
+                {
+                    Id = dto.Id,
+                    EmployeeName = dto.EmployeeName,
+                    Price = dto.Price,
+                    CarNumber = dto.CarNumber
+                });
+            }
+
+            response.Data = orderDtos;
+
+            return response;
+        }
+
         public async Task<BaseResponse<Order>> GetAsync(Expression<Func<Order, bool>> expression)
         {
             var response = new BaseResponse<Order>();
@@ -102,9 +143,9 @@ namespace HugeCarWash.Service.Services
                 return response;
             }
 
-            order.UserId = orderDto.UserId;
-            order.EmployeeId = orderDto.EmployeeId;
-            order.Price = orderDto.Price;
+            //order.UserId = orderDto.UserId;
+            //order.EmployeeId = orderDto.EmployeeId;
+            //order.Price = orderDto.Price;
 
             order.Update();
 

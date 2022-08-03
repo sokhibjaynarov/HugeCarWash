@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { IClient } from 'src/app/interfaces/client';
 import { IEmployee } from 'src/app/interfaces/employee';
-import { IOrder } from 'src/app/interfaces/order';
+import { IOrder, IOrderDto } from 'src/app/interfaces/order';
 import { ClientService } from 'src/app/services/client/client.service';
 import { EmployeeService } from 'src/app/services/employee/employee.service';
 import { OrderService } from 'src/app/services/order/order.service';
@@ -15,9 +15,11 @@ import { OrderService } from 'src/app/services/order/order.service';
 })
 export class OrdersComponent implements OnInit {
 
-  orders!: IOrder[];
-  employees!: IEmployee[];
-  clients!: IClient[];
+  // orders!: IOrder[];
+  // employees!: IEmployee[];
+  // clients!: IClient[];
+
+  orderDtos!: IOrderDto[];
 
   constructor( private service: OrderService,
     private router: Router,
@@ -33,7 +35,7 @@ export class OrdersComponent implements OnInit {
     //   this.toastr.error(error.error.message, 'Error');
     // });
 
-    this.orders = await this.service.getOrders();
+    //this.orders = await this.service.getOrders();
 
     // (await this.employeeService.getEmployees()).subscribe((data: IEmployee[]) => {
     //   this.employees = data;
@@ -42,7 +44,7 @@ export class OrdersComponent implements OnInit {
     //   this.toastr.error(error.error.message, 'Error');
     // });
 
-    this.employees = await this.employeeService.getEmployees();
+    //this.employees = await this.employeeService.getEmployees();
 
     // (await this.clientService.getClients()).subscribe((data: IClient[]) => {
     //   this.clients = data;
@@ -51,28 +53,30 @@ export class OrdersComponent implements OnInit {
     //   this.toastr.error(error.error.message, 'Error');
     // });
 
-    this.clients = await this.clientService.getClients();
+    //this.clients = await this.clientService.getClients();
+
+    this.orderDtos = await this.service.getAllOrders();
   }
 
   showOrder(id: string): void{
     this.router.navigate(["/order", id]);
   }
 
-  getEmployeeName(employeeId: string): (string | null){
-    let name = this.employees.find(employee => employee.id === employeeId)?.firstName;
+  // getEmployeeName(employeeId: string): (string | null){
+  //   let name = this.employees.find(employee => employee.id === employeeId)?.firstName;
 
-    if (name != null) {
-      return name;
-    }
-    return null;
-  }
+  //   if (name != null) {
+  //     return name;
+  //   }
+  //   return null;
+  // }
 
-  getClientName(clientId: string): (string | null){
-    let name = this.clients.find(client => client.id === clientId)?.firstName;
-    if (name) {
-      return name;
-    }
-    return null;
-  }
+  // getClientName(clientId: string): (string | null){
+  //   let name = this.clients.find(client => client.id === clientId)?.firstName;
+  //   if (name) {
+  //     return name;
+  //   }
+  //   return null;
+  // }
 
 }

@@ -13,5 +13,6 @@ namespace HugeCarWash.Service.Interfaces
         Task<BaseResponse<IEnumerable<Order>>> GetAllAsync(PaginationParams @params, Expression<Func<Order, bool>> expression = null);
         Task<BaseResponse<bool>> DeleteAsync(Expression<Func<Order, bool>> expression);
         Task<BaseResponse<Order>> UpdateAsync(Guid id, OrderForCreationDto OrderDto);
+        Task<BaseResponse<IEnumerable<OrderDto>>> GetAllOrdersAsync();
     }
 }
