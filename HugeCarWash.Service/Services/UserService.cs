@@ -116,6 +116,7 @@ namespace HugeCarWash.Service.Services
             user.CarModel = userDto.CarModel;
             user.PhoneNumber = userDto.PhoneNumber;
             user.TelegramId = userDto.TelegramId;
+            user.Step = userDto.Step;
 
             user.Update();
 

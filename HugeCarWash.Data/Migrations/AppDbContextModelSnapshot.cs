@@ -113,6 +113,9 @@ namespace HugeCarWash.Data.Migrations
                     b.Property<int>("State")
                         .HasColumnType("integer");
 
+                    b.Property<int>("Step")
+                        .HasColumnType("integer");
+
                     b.Property<string>("TelegramId")
                         .HasColumnType("text");
 
@@ -122,6 +125,23 @@ namespace HugeCarWash.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("HugeCarWash.Domain.Entities.Users.UserHelper", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Step")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("TelegramId")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserHelpers");
                 });
 
             modelBuilder.Entity("HugeCarWash.Domain.Entities.Orders.Order", b =>

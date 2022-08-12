@@ -13,6 +13,7 @@ namespace HugeCarWash.Domain.Entities.Users
         public string? TelegramId { get; set; }
         public string CarNumber { get; set; }
         public string CarModel { get; set; }
+        public Step Step { get; set; } = Step.Start;
         //public DateTime CreatedAt { get; set; }
         //public DateTime? UpdatedAt { get; set; }
         public Guid? UpdatedBy { get; set; }
@@ -32,7 +33,7 @@ namespace HugeCarWash.Domain.Entities.Users
 
         public void Create()
         {
-           // CreatedAt = DateTime.Now;
+            // CreatedAt = DateTime.Now;
             State = ItemState.Created;
         }
 

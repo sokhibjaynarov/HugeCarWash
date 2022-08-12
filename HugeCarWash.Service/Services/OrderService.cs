@@ -16,28 +16,22 @@ namespace HugeCarWash.Service.Services
         private readonly IUnitOfWork unitOfWork;
         private readonly IConfiguration config;
         private readonly IMapper mapper;
+        private readonly IBotClient botClient;
 
-        public OrderService(IUnitOfWork unitOfWork, IConfiguration config, IMapper mapper)
+        public OrderService(IUnitOfWork unitOfWork, IConfiguration config, IMapper mapper, IBotClient botClient)
         {
             this.unitOfWork = unitOfWork;
             this.config = config;
             this.mapper = mapper;
+            this.botClient = botClient;
         }
         public async Task<BaseResponse<Order>> CreateAsync(OrderForCreationDto orderDto)
         {
             var response = new BaseResponse<Order>();
 
-            var mapdto = new OrderMapDto()
-            {
-                EmployeeId = (await unitOfWork.Employees.GetAsync(p => p.FirstName == orderDto.EmployeeName)).Id,
-                UserId = (await unitOfWork.Users.GetAsync(p => p.CarModel == orderDto.CarNnumber)).Id,
-                Price = orderDto.Price
-            };
-
-            var user = await unitOfWork.Users.GetAsync(p => p.CarModel == orderDto.CarNnumber);
-
-
             var mappedOrder = mapper.Map<Order>(orderDto);
+
+            var user = await unitOfWork.Users.GetAsync(p => p.Id == orderDto.UserId);
 
             mappedOrder.Create();
 
@@ -46,6 +40,10 @@ namespace HugeCarWash.Service.Services
             await unitOfWork.SaveChangesAsync();
 
             response.Data = result;
+
+            string message = "Helloooo";
+
+            var a = await botClient.SendMessageAsync(user.TelegramId, message);
 
             return response;
         }
@@ -99,7 +97,7 @@ namespace HugeCarWash.Service.Services
 
             List<OrderDto> orderDtos = new List<OrderDto>();
 
-            foreach(var dto in dtos)
+            foreach (var dto in dtos)
             {
                 orderDtos.Add(new OrderDto()
                 {

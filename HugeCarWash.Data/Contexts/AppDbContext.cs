@@ -15,5 +15,6 @@ namespace HugeCarWash.Data.Contexts
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
+        public virtual DbSet<UserHelper> UserHelpers { get; set; }
     }
 }

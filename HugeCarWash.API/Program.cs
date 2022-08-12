@@ -1,7 +1,6 @@
 using HugeCarService.Api.Extensions;
 using HugeCarWash.API.Configurations;
 using HugeCarWash.Data.Contexts;
-using HugeCarWash.Service.Helpers;
 using HugeCarWash.Service.Mappers;
 using Microsoft.EntityFrameworkCore;
 

@@ -13,11 +13,6 @@ export class EmployeeService {
 
   constructor( private http: HttpClient) { }
 
-  // async getEmployees() : Promise<Observable<IEmployee[]>> {
-  //   return this.http.get(`${this._baseUrl}`).pipe(map((data: any) => {
-  //     return data.data;
-  //   }));
-  // }
 
   getEmployees(): Promise<IEmployee[]> {
     return this.http.get(this._baseUrl).toPromise().then((data: any) => {
@@ -29,12 +24,6 @@ export class EmployeeService {
     );
   }
 
-  // async getEmployee(employeeId: string) : Promise<Observable<IEmployee>> {
-  //   return this.http.get(`${this._baseUrl}/${employeeId}`).pipe(map((data: any) => {
-  //     return data.data;
-  //   }));
-  // }
-
   getEmployee(employeeId: string): Promise<IEmployee> {
     return this.http.get(`${this._baseUrl}/${employeeId}`).toPromise().then((data: any) => {
       return data.data;
@@ -45,12 +34,6 @@ export class EmployeeService {
     );
   }
 
-  // async createEmployee(employee: IEmployee) : Promise<Observable<IEmployee>> {
-  //   return this.http.post(this._baseUrl, employee).pipe(map((data: any) => {
-  //     return data.data;
-  //   }));
-  // }
-
   createEmployee(employee: IEmployee) : Promise<IEmployee> {
     return this.http.post(this._baseUrl, employee).toPromise().then((data: any) => {
       return data.data;
@@ -59,12 +42,6 @@ export class EmployeeService {
       console.log(err);
     });
   }
-
-  // async updateEmployee(employee: IEmployee, id: string) : Promise<Observable<any>> {
-  //   return this.http.put(`${this._baseUrl}/${id}`, employee).pipe(map((data: any) => {
-  //     return data.data;
-  //   }));
-  // }
 
   updateEmployee(employee: IEmployee, id: string) : Promise<IEmployee> {
     return this.http.put(`${this._baseUrl}/${id}`, employee).toPromise().then((data: any) => {
@@ -76,12 +53,6 @@ export class EmployeeService {
     );
   }
 
-  // async deleteEmployee(id: string) : Promise<Observable<boolean>> {
-  //   return this.http.delete(`${this._baseUrl}/${id}`).pipe(map((data: any) => {
-  //     return data.data;
-  //   }));
-  // }
-
   deleteEmployee(id: string) : Promise<boolean> {
     return this.http.delete(`${this._baseUrl}/${id}`).toPromise().then((data: any) => {
       return data.data;
@@ -91,13 +62,6 @@ export class EmployeeService {
     }
     );
   }
-
-  // async getData() : Promise<Observable<string[]>> {
-  //   return this.http.get(this._baseUrl).pipe(map((data: any) => {
-  //     console.log(data.data);
-  //     return data.data.map((item: any) => item.firstName);
-  //   }));
-  // }
 
   getData() : Promise<string[]> {
     return this.http.get(this._baseUrl).toPromise().then((data: any) => {

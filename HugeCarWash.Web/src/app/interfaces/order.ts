@@ -1,7 +1,7 @@
 export interface IOrder {
     id: string;
     price: number;
-    clientId: string;
+    userId: string;
     employeeId: string;
     orderDate: Date;
 }

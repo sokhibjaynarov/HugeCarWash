@@ -33,7 +33,7 @@ export class ClientComponent implements OnInit {
   }
 
   async getClientOrders(orders: IOrder[], client: Client): Promise<any[]> {
-    return orders.filter(order => order.clientId === client.id);
+    return orders.filter(order => order.userId === client.id);
   }
 
   showOrder(id: string): void {

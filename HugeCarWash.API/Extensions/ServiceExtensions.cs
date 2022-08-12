@@ -9,10 +9,12 @@ namespace HugeCarService.Api.Extensions
     {
         public static void AddCustomServices(this IServiceCollection services)
         {
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<IOrderService, OrderService>();
-            services.AddScoped<IEmployeeService, EmployeeService>();
-            services.AddScoped<IUserService, UserService>();
+            services
+                .AddScoped<IUnitOfWork, UnitOfWork>()
+                .AddScoped<IEmployeeService, EmployeeService>()
+                .AddScoped<IUserService, UserService>()
+                .AddScoped<IOrderService, OrderService>()
+                .AddScoped<IBotClient, BotClient>();
         }
     }
 }

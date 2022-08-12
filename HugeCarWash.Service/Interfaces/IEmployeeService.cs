@@ -2,12 +2,7 @@
 using HugeCarWash.Domain.Configurations;
 using HugeCarWash.Domain.Entities.Employees;
 using HugeCarWash.Service.DTOs.Employees;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HugeCarWash.Service.Interfaces
 {

@@ -8,7 +8,7 @@ import { IOrder, Order } from 'src/app/interfaces/order';
 import { ClientService } from 'src/app/services/client/client.service';
 import { EmployeeService } from 'src/app/services/employee/employee.service';
 import { OrderService } from 'src/app/services/order/order.service';
-import { map } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-add-order',
@@ -19,13 +19,15 @@ export class AddOrderComponent implements OnInit {
 
   clients!: IClient[];
   employees!: IEmployee[];
-  form!: FormGroup;
 
-  optionsClient = ["Sam", "Varun", "Jasmine"];
-  optionsEmployee = ["Sam", "Varun", "Jasmine"];
+  optionsClient!: IClient[];
+  optionsEmployee!: IEmployee[];
 
-  filteredOptionsClient: any;
-  filteredOptionsEmployee: any;
+  form = new FormGroup({
+    userId: new FormControl('', Validators.required),
+    employeeId: new FormControl('', Validators.required),
+    price: new FormControl(60000, Validators.required),
+  });
 
   constructor( private service: OrderService,
     private router: Router,
@@ -33,54 +35,24 @@ export class AddOrderComponent implements OnInit {
     private clientService: ClientService) { }
 
   async ngOnInit(): Promise<void> {
+    this.optionsClient = await this.clientService.getClients();
 
-    this.clients = await this.clientService.getClients();
-
-    this.employees = await this.employeeService.getEmployees();
-
-    this.getEmployeeNames();
-    this.getClientCarNumbers();
-    this.initForm();
+    this.optionsEmployee = await this.employeeService.getEmployees();
   }
 
-  initForm() {
-    this.form = new FormGroup({
-      carNumber: new FormControl('', Validators.required),
-      employeeName: new FormControl('', Validators.required),
-      price: new FormControl(60000, Validators.required),
-    });
+  keywordEmployee = 'firstName';
+  keywordClient = 'carNumber';
 
-    this.form.get('employeeName')!.valueChanges.subscribe(response => {
-      this.filterDataEmployee(response);
-    });
-    this.form.get('carNumber')!.valueChanges.subscribe(response => {
-      this.filterDataClient(response);
-    });
+  selectEventClient(item: IClient): void {
+    this.form.value.userId = item.id;
   }
 
-  filterDataClient(enteredData: string): void {
-    this.filteredOptionsClient = this.optionsClient.filter(item => {
-      return item.toLowerCase().indexOf(enteredData.toLowerCase()) > -1
-    });
-  }
-
-  filterDataEmployee(enteredData: string): void {
-    this.filteredOptionsEmployee = this.optionsEmployee.filter(item => {
-      return item.toLowerCase().indexOf(enteredData.toLowerCase()) > -1
-    });
-  }
-
-  async getEmployeeNames(): Promise<void>{
-    this.optionsEmployee = await this.employeeService.getData();
-    this.filteredOptionsEmployee = this.optionsEmployee;
-  }
-
-  async getClientCarNumbers(): Promise<void> {
-    this.optionsClient = await this.clientService.getData();
-    this.filteredOptionsClient = this.optionsClient;
+  selectEventEmployee(item: IEmployee): void {
+    this.form.value.employeeId = item.id;
   }
   
   async onSubmit(): Promise<void> {
+    console.log(this.form.value);
     await this.service.createOrder(this.form.value);
     this.router.navigate(["/orders"]);
   }

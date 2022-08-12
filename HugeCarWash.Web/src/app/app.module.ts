@@ -24,9 +24,8 @@ import { DeleteOrderComponent } from './components/orders/delete-order/delete-or
 import { UpdateOrderComponent } from './components/orders/update-order/update-order.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MatInputModule } from '@angular/material/input';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { SharedModule } from './modules/shared/shared.module';
+import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 
 @NgModule({
   declarations: [
@@ -73,9 +72,8 @@ import { SharedModule } from './modules/shared/shared.module';
     ]),
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    MatInputModule,
-    MatAutocompleteModule,
-    SharedModule
+    SharedModule,
+    AutocompleteLibModule
   ],
   providers: [ ],
   bootstrap: [AppComponent]

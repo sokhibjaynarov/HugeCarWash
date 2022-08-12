@@ -5,9 +5,9 @@ namespace HugeCarWash.Service.DTOs.Orders
     public class OrderForCreationDto
     {
         [Required]
-        public string CarNnumber { get; set; }
+        public Guid UserId { get; set; }
         [Required]
-        public string EmployeeName { get; set; }
+        public Guid EmployeeId { get; set; }
         [Required]
         public decimal Price { get; set; }
     }

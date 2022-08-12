@@ -7,12 +7,7 @@ using HugeCarWash.Domain.Enums;
 using HugeCarWash.Service.DTOs.Employees;
 using HugeCarWash.Service.Interfaces;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HugeCarWash.Service.Services
 {

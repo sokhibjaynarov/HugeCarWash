@@ -4,7 +4,6 @@ using HugeCarWash.Domain.Entities.Orders;
 using HugeCarWash.Domain.Enums;
 using HugeCarWash.Service.DTOs.Orders;
 using HugeCarWash.Service.Interfaces;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HugeCarService.Api.Controllers
@@ -26,7 +25,6 @@ namespace HugeCarService.Api.Controllers
         public async Task<ActionResult<BaseResponse<Order>>> Create(OrderForCreationDto OrderDto)
         {
             var result = await orderService.CreateAsync(OrderDto);
-
             return StatusCode(result.Error is null ? result.Code : result.Error.Code, result);
         }
 
