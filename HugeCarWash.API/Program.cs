@@ -18,7 +18,7 @@ builder.Services.AddCors(options =>
                       policy =>
                       {
                           policy
-                            .WithOrigins("http://localhost:4200")
+                            .WithOrigins("https://hugecarwash.herokuapp.com")
                             .WithMethods("GET", "POST", "PUT", "DELETE")
                             .AllowAnyHeader()
                             .AllowCredentials();
