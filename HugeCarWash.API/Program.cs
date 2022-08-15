@@ -18,7 +18,7 @@ builder.Services.AddCors(options =>
                       policy =>
                       {
                           policy
-                            .WithOrigins("https://hugecarwash.herokuapp.com")
+                            .WithOrigins("https://hugecarwash.netlify.app")
                             .WithMethods("GET", "POST", "PUT", "DELETE")
                             .AllowAnyHeader()
                             .AllowCredentials();
