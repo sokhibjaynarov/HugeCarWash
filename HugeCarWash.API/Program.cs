@@ -18,7 +18,7 @@ builder.Services.AddCors(options =>
                       policy =>
                       {
                           policy
-                            .WithOrigins("https://hugecarwash.netlify.app")
+                            .WithOrigins("https://hugecarwash.netlify.app", "http://localhost:4200")
                             .WithMethods("GET", "POST", "PUT", "DELETE")
                             .AllowAnyHeader()
                             .AllowCredentials();
