@@ -6,6 +6,6 @@
 
         void AddRequestHeaders();
 
-        HttpRequestMessage CreateRequest(string userId, object body);
+        HttpRequestMessage CreateRequest(string userId, string text);
     }
 }

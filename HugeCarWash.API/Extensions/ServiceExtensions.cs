@@ -14,7 +14,9 @@ namespace HugeCarService.Api.Extensions
                 .AddScoped<IEmployeeService, EmployeeService>()
                 .AddScoped<IUserService, UserService>()
                 .AddScoped<IOrderService, OrderService>()
-                .AddScoped<IBotClient, BotClient>();
+                .AddScoped<IBotClient, BotClient>()
+                .AddScoped<IBotService, BotService>();
+
         }
     }
 }

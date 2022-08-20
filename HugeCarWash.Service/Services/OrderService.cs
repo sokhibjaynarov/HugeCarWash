@@ -16,14 +16,14 @@ namespace HugeCarWash.Service.Services
         private readonly IUnitOfWork unitOfWork;
         private readonly IConfiguration config;
         private readonly IMapper mapper;
-        private readonly IBotClient botClient;
+        private readonly IBotService botService;
 
-        public OrderService(IUnitOfWork unitOfWork, IConfiguration config, IMapper mapper, IBotClient botClient)
+        public OrderService(IUnitOfWork unitOfWork, IConfiguration config, IMapper mapper, IBotService botService)
         {
             this.unitOfWork = unitOfWork;
             this.config = config;
             this.mapper = mapper;
-            this.botClient = botClient;
+            this.botService = botService;
         }
         public async Task<BaseResponse<Order>> CreateAsync(OrderForCreationDto orderDto)
         {
@@ -41,9 +41,7 @@ namespace HugeCarWash.Service.Services
 
             response.Data = result;
 
-            string message = "Helloooo";
-
-            var a = await botClient.SendMessageAsync(user.TelegramId, message);
+            var a = await botService.SendMessageAsync(user.TelegramId, mappedOrder);
 
             return response;
         }

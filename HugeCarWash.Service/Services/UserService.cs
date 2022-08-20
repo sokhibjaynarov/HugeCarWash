@@ -117,6 +117,8 @@ namespace HugeCarWash.Service.Services
             user.PhoneNumber = userDto.PhoneNumber;
             user.TelegramId = userDto.TelegramId;
             user.Step = userDto.Step;
+            user.Language = userDto.Language;
+            user.IsActive = userDto.IsActive;
 
             user.Update();
 

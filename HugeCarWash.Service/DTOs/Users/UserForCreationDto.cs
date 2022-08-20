@@ -16,6 +16,8 @@ namespace HugeCarWash.Service.DTOs.Users
         [Required]
         public string CarModel { get; set; }
         public string? TelegramId { get; set; }
-        public Step Step { get; set; }
+        public int Step { get; set; }
+        public string Language { get; set; }
+        public bool IsActive { get; set; }
     }
 }

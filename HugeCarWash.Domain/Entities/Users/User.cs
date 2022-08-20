@@ -13,7 +13,9 @@ namespace HugeCarWash.Domain.Entities.Users
         public string? TelegramId { get; set; }
         public string CarNumber { get; set; }
         public string CarModel { get; set; }
-        public Step Step { get; set; } = Step.Start;
+        public bool IsActive { get; set; }
+        public string Language { get; set; } = "uz";
+        public int Step { get; set; } = 0;
         //public DateTime CreatedAt { get; set; }
         //public DateTime? UpdatedAt { get; set; }
         public Guid? UpdatedBy { get; set; }

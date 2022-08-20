@@ -1,38 +1,37 @@
 ﻿using HugeCarWash.Service.Interfaces;
+using Microsoft.Extensions.Configuration;
+using static System.Net.WebRequestMethods;
 
 namespace HugeCarWash.Service.Services
 {
     public class BotClient : IBotClient
     {
         protected HttpClient HttpClient { get; set; }
+        private IConfiguration config;
 
-        public BotClient()
+        public BotClient(IConfiguration config)
         {
             HttpClient = new HttpClient();
+            this.config = config;
             AddRequestHeaders();
         }
 
         public async Task<bool> SendMessageAsync(string userId, string message)
         {
-            if (string.IsNullOrWhiteSpace(message))
-                throw new ArgumentException();
+            var requestMessage = CreateRequest(userId, message);
 
-            return await Task.Run(async () =>
+            bool success = false;
+            try
             {
-                var requestMessage = CreateRequest(userId, message);
-                var success = false;
-                try
-                {
-                    var response = await HttpClient.SendAsync(requestMessage);
-                    success = response.StatusCode == System.Net.HttpStatusCode.OK;
-                }
-                catch
-                {
-                    success = false;
-                }
+                var response = await HttpClient.SendAsync(requestMessage);
+                success = response.StatusCode == System.Net.HttpStatusCode.OK;
+            }
+            catch
+            {
+                success = false;
+            }
 
-                return success;
-            });
+            return success;
         }
 
         public void AddRequestHeaders()
@@ -40,9 +39,11 @@ namespace HugeCarWash.Service.Services
             //httpClient.DefaultRequestHeaders
         }
 
-        public HttpRequestMessage CreateRequest(string userId, object body)
+        public HttpRequestMessage CreateRequest(string userId, string text)
         {
-            var message = new HttpRequestMessage(HttpMethod.Post, $"https://e39e-84-54-66-53.eu.ngrok.io/api/message/{userId}?message={body}");
+            var token = config.GetSection("BotConfigurations:AuthToken").Value;
+
+            var message = new HttpRequestMessage(HttpMethod.Post, $"https://api.telegram.org/bot{token}/sendMessage?chat_id={userId}&text={text}");
             //message.Content = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(body));
 
             return message;
