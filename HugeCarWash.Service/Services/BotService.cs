@@ -28,9 +28,8 @@ namespace HugeCarWash.Service.Services
             string messageUz = "Assalomu aleykum! \n" +
                 "Siz bizning Huge Car Wash servislaridan foylandingiz!\n" +
                 $"Xizmat narxi: {order.Price} so'm\n" +
-                $"Jami servislar soni: {numberOfOrders}\n" +
-                $"Bepul xizmatga qoldi: {numberOfOrders % 6}\n" +
-                $"Aloqa uchun: +998 9x xxx xx xx\n" +
+                $"Jami ko'rsatilgan servislar soni: {numberOfOrders}\n" +
+                $"Aloqa uchun: +998 93 484 38 68\n" +
                 $"Telegram: @hugecarwash ";
 
             string messageRu = "Ru";
